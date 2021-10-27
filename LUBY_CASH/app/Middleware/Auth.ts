@@ -13,7 +13,7 @@ export default class AuthMiddleware {
   /**
    * The URL to redirect to when request is Unauthorized
    */
-  protected redirectTo = '/login'
+  protected redirectTo = '/login_clients'
 
   /**
    * Authenticates the current HTTP request against a custom set of defined
@@ -36,11 +36,6 @@ export default class AuthMiddleware {
       guardLastAttempted = guard
 
       if (await auth.use(guard).check()) {
-        /**
-         * Instruct auth to use the given guard as the default guard for
-         * the rest of the request, since the user authenticated
-         * succeeded here
-         */
         auth.defaultGuard = guard
         return true
       }
@@ -53,14 +48,14 @@ export default class AuthMiddleware {
       'Unauthorized access',
       'E_UNAUTHORIZED_ACCESS',
       guardLastAttempted,
-      this.redirectTo,
+      this.redirectTo
     )
   }
 
   /**
    * Handle request
    */
-  public async handle (
+  public async handle(
     { auth }: HttpContextContract,
     next: () => Promise<void>,
     customGuards: (keyof GuardsList)[]
@@ -69,6 +64,9 @@ export default class AuthMiddleware {
      * Uses the user defined guards or the default guard mentioned in
      * the config file
      */
+    customGuards.push('apiAdmin')
+    customGuards.push('apiUser')
+
     const guards = customGuards.length ? customGuards : [auth.name]
     await this.authenticate(auth, guards)
     await next()
