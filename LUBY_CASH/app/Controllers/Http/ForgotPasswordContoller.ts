@@ -4,10 +4,12 @@ import moment from 'moment'
 import { DateTime } from 'luxon'
 
 import Admin from 'App/Models/Admin'
+import EmailValidator from 'App/Validators/EmailValidator'
+import LoginValidator from 'App/Validators/LoginValidator'
 
 export default class ForgotPasswordController {
   public async generateTokenAdmin({ request }: HttpContextContract) {
-    // await request.validate(EmailValidator)
+    await request.validate(EmailValidator)
     const { email } = request.body()
 
     const admin = await Admin.findByOrFail('email', email)
@@ -23,7 +25,7 @@ export default class ForgotPasswordController {
   }
 
   public async updatePasswordAdmin({ request, response }: HttpContextContract) {
-    // await request.validate(UserValidator)
+    await request.validate(LoginValidator)
 
     try {
       const { token, password } = request.body()
