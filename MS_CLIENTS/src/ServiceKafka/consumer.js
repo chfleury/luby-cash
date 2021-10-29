@@ -1,4 +1,6 @@
 const { Kafka } = require('kafkajs');
+const ClientsController = require('../controllers/ClientsController');
+const Client = require('../models/Clients');
 
 class Consumer {
   constructor() {
@@ -18,9 +20,11 @@ class Consumer {
       eachMessage: async ({ message }) => {
         const jsonMessage = JSON.parse(message.value.toString());
 
+        await ClientsController.store(jsonMessage);
+
         // console.log(jsonMessage.userEmail);
 
-        await Mailer.sendMail(jsonMessage);
+        // await Mailer.sendMail(jsonMessage);
       },
     });
   }
