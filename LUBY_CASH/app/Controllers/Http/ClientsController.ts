@@ -22,7 +22,6 @@ export default class ClientsController {
       city,
       state,
       address,
-      current_balance: currentBalance,
       average_salary: averageSalary,
     } = request.body()
 
@@ -40,7 +39,6 @@ export default class ClientsController {
             phone,
             city,
             state,
-            currentBalance,
           }),
         },
       ],

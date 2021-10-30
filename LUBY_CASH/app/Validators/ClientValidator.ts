@@ -14,7 +14,6 @@ export default class ClientValidator {
     city: schema.string(),
     state: schema.string(),
     zipcode: schema.string(),
-    current_balance: schema.number(),
     average_salary: schema.number(),
   })
 
