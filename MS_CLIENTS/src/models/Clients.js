@@ -21,11 +21,17 @@ class Client extends Model {
       }
     );
 
+    this.addHook('beforeCreate', async (client) => {
+      if (client.averageSalary >= 500) {
+        client.status = true;
+        client.currentBalance = 200;
+      } else {
+        client.status = false;
+        client.currentBalance = 0;
+      }
+    });
+
     return this;
   }
-
-  //   static associate(models) {
-  //     this.belongsTo(models.File, { foreignKey: 'avatar_id', as: 'avatar' });
-  //   }
 }
 module.exports = Client;
