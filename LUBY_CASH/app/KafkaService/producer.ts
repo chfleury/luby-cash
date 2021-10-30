@@ -17,7 +17,7 @@ export default class Producer {
       topic,
       messages,
     }
-    console.log(data)
+    // console.log(data)
     await this.producer.send(data)
 
     await this.producer.disconnect()
