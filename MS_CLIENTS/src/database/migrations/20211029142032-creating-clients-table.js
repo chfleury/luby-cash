@@ -26,31 +26,32 @@ module.exports = {
       },
       address: {
         type: Sequelize.STRING,
-        unique: true,
       },
       city: {
         type: Sequelize.STRING,
-        unique: true,
       },
       state: {
         type: Sequelize.STRING,
-        unique: true,
       },
       zipcode: {
         type: Sequelize.STRING,
-        unique: true,
       },
-      currente_balance: {
+      current_balance: {
         type: Sequelize.DOUBLE,
-        unique: true,
       },
       average_salary: {
         type: Sequelize.DOUBLE,
-        unique: true,
       },
       status: {
         type: Sequelize.BOOLEAN,
-        unique: true,
+      },
+      created_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      updated_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
       },
     });
   },

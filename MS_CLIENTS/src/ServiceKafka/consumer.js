@@ -22,7 +22,7 @@ class Consumer {
 
         await ClientsController.store(jsonMessage);
 
-        // console.log(jsonMessage.userEmail);
+        console.log(jsonMessage.address);
 
         // await Mailer.sendMail(jsonMessage);
       },
