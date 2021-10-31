@@ -7,6 +7,7 @@ Route.get('/', async () => {
 Route.post('admins', 'AdminsController.store').middleware('auth').middleware('isAdmin')
 
 Route.post('clients', 'ClientsController.store')
+Route.get('clients', 'ClientsController.index')
 
 Route.post('login_admin', 'AuthController.loginAdmin')
 Route.post('login_client', 'AuthController.loginClient')

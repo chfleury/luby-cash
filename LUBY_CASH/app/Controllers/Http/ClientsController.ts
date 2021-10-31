@@ -1,12 +1,28 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import axios from 'axios'
 
 import KafkaProducer from 'App/KafkaService/producer'
-
 import User from 'App/Models/User'
-
 import ClientValidator from 'App/Validators/ClientValidator'
 
 export default class ClientsController {
+  public async index({ request, response }: HttpContextContract) {
+    const { status, date } = request.qs()
+
+    const url = `http://localhost:3000/clients?status=${status}&date=${date}`
+    console.log(url)
+    const res = await axios({
+      url,
+      method: 'get',
+    })
+
+    if (res.status === 200) {
+      response.send(res.data)
+    } else {
+      response.status(500).send({ error: 'unexpected error' })
+    }
+  }
+
   public async store({ request, response }: HttpContextContract) {
     await request.validate(ClientValidator)
     const producer = new KafkaProducer()

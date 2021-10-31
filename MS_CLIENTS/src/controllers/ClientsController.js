@@ -1,7 +1,39 @@
 const Mailer = require('../Mailer/Mailer');
 const Client = require('../models/Clients');
+const { Op } = require('sequelize');
+const moment = require('moment');
 
 class ClientsController {
+  async index(req, res) {
+    const { status, date } = req.query;
+
+    if (date == 'undefined' || date == null) {
+      const clients = await Client.findAll({
+        where: {
+          status,
+        },
+      });
+
+      return res.json(clients);
+    }
+
+    const dateStart = moment(date, 'MM-DD-YYYY').format('YYYY-MM-DD');
+    const dateEnd = moment(date, 'MM-DD-YYYY')
+      .add(1, 'days')
+      .format('YYYY-MM-DD');
+
+    const clients = await Client.findAll({
+      where: {
+        status,
+        createdAt: {
+          [Op.between]: [dateStart, dateEnd],
+        },
+      },
+    });
+
+    return res.json(clients);
+  }
+
   async store(data) {
     try {
       const client = await Client.create(data);
