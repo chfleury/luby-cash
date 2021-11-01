@@ -13,6 +13,8 @@ export default class TransactionsController {
         .where('sender_cpf', '=', cpf)
         .orWhere('receiver_cpf', '=', cpf)
         .whereBetween('created_at', [from, to])
+        .orderBy('id', 'desc')
+
       return response.send(transacitons)
     }
 
@@ -20,6 +22,7 @@ export default class TransactionsController {
       .select('*')
       .where('sender_cpf', '=', cpf)
       .orWhere('receiver_cpf', '=', cpf)
+      .orderBy('id', 'desc')
 
     return response.send(transacitons)
   }
