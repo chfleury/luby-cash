@@ -7,7 +7,9 @@ export default class Transactions extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.string('sender_cpf')
-      table.string('reciever_cpf')
+      table.string('receiver_cpf')
+      table.float('value')
+
       table.timestamp('created_at', { useTz: true })
     })
   }

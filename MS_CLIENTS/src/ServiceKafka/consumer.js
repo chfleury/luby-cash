@@ -1,6 +1,5 @@
 const { Kafka } = require('kafkajs');
 const ClientsController = require('../controllers/ClientsController');
-const Client = require('../models/Clients');
 
 class Consumer {
   constructor() {
@@ -21,10 +20,6 @@ class Consumer {
         const jsonMessage = JSON.parse(message.value.toString());
 
         await ClientsController.store(jsonMessage);
-
-        console.log(jsonMessage.address);
-
-        // await Mailer.sendMail(jsonMessage);
       },
     });
   }

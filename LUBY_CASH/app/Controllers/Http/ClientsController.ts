@@ -2,6 +2,8 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import axios from 'axios'
 
 import KafkaProducer from 'App/KafkaService/producer'
+import KafkaConsumer from 'App/KafkaService/consumer'
+
 import User from 'App/Models/User'
 import ClientValidator from 'App/Validators/ClientValidator'
 
@@ -40,6 +42,10 @@ export default class ClientsController {
       address,
       average_salary: averageSalary,
     } = request.body()
+
+    const consumer = new KafkaConsumer()
+
+    consumer.consume({ topic: 'client-status', fromBeginning: false, cpfNumber })
 
     await producer.produce({
       topic: 'new-client',

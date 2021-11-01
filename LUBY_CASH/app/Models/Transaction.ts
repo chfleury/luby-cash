@@ -9,7 +9,10 @@ export default class Transaction extends BaseModel {
   public sender_cpf: string
 
   @column()
-  public reciever_cpf: string
+  public receiver_cpf: string
+
+  @column()
+  public value: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

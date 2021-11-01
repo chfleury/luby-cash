@@ -11,3 +11,5 @@ Route.get('clients', 'ClientsController.index')
 
 Route.post('login_admin', 'AuthController.loginAdmin')
 Route.post('login_client', 'AuthController.loginClient')
+
+Route.post('pix', 'TransactionsController.store')
