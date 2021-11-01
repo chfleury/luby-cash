@@ -12,4 +12,4 @@ app.listen(3000);
 
 const consumer = new Consumer();
 
-consumer.consume({ topic: 'new-client', fromBeginning: true });
+consumer.consume({ topic: 'new-client', fromBeginning: false });

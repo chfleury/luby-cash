@@ -3,6 +3,27 @@ import Transaction from 'App/Models/Transaction'
 import axios from 'axios'
 
 export default class TransactionsController {
+  public async index({ request, response }: HttpContextContract) {
+    const { cpf } = request.params()
+    const { from, to } = request.qs()
+
+    if (from && to) {
+      const transacitons = await Transaction.query()
+        .select('*')
+        .where('sender_cpf', '=', cpf)
+        .orWhere('receiver_cpf', '=', cpf)
+        .whereBetween('created_at', [from, to])
+      return response.send(transacitons)
+    }
+
+    const transacitons = await Transaction.query()
+      .select('*')
+      .where('sender_cpf', '=', cpf)
+      .orWhere('receiver_cpf', '=', cpf)
+
+    return response.send(transacitons)
+  }
+
   public async store({ request, response }: HttpContextContract) {
     const { senderCpf, receiverCpf, value } = request.body()
 

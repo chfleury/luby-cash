@@ -38,7 +38,6 @@ class ClientsController {
 
   async store(data) {
     const client = await Client.create(data);
-    console.log(client);
 
     var data = {};
     if (client.status) {
@@ -58,7 +57,7 @@ class ClientsController {
       data = {
         from: '"Prova Luby Cash" <prova@example.com>', // sender address
         to: client.email,
-        subject: 'Infelizemente você foi reprovado.', // Subject line
+        subject: 'Infelizmente você foi reprovado.', // Subject line
         text: `Olá ${client.fullName}, \n
         Seu status no nosso sistema é REPROVADO. \n
         O sistema não aceitará novas solicitações do cpf ${client.cpfNumber}.`, // plain text body

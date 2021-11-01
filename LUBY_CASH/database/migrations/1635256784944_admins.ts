@@ -11,6 +11,8 @@ export default class Admins extends BaseSchema {
       table.string('phone').unique().notNullable()
       table.string('full_name').notNullable()
       table.string('password').notNullable()
+      table.string('token')
+      table.timestamp('token_created_at', { useTz: true })
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
