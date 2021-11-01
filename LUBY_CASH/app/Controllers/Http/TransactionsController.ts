@@ -6,25 +6,30 @@ export default class TransactionsController {
   public async index({ request, response }: HttpContextContract) {
     const { cpf } = request.params()
     const { from, to } = request.qs()
-
+    var transactions
     if (from && to) {
-      const transacitons = await Transaction.query()
+      transactions = await Transaction.query()
         .select('*')
         .where('sender_cpf', '=', cpf)
         .orWhere('receiver_cpf', '=', cpf)
         .whereBetween('created_at', [from, to])
         .orderBy('id', 'desc')
-
-      return response.send(transacitons)
     }
 
-    const transacitons = await Transaction.query()
+    transactions = await Transaction.query()
       .select('*')
       .where('sender_cpf', '=', cpf)
       .orWhere('receiver_cpf', '=', cpf)
       .orderBy('id', 'desc')
 
-    return response.send(transacitons)
+    const res = transactions.map((e) => {
+      if (e.sender_cpf === cpf) {
+        return { value: e.value * -1, date: e.createdAt }
+      }
+      return { value: e.value, date: e.createdAt }
+    })
+
+    return response.send(res)
   }
 
   public async store({ request, response }: HttpContextContract) {
