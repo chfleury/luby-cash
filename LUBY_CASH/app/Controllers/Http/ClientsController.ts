@@ -11,6 +11,10 @@ export default class ClientsController {
   public async index({ request, response }: HttpContextContract) {
     const { status, date } = request.qs()
 
+    if (!status) {
+      response.status(400).send({ error: 'Please specify the status via query string' })
+    }
+
     const url = `http://localhost:3000/clients?status=${status}&date=${date}`
     console.log(url)
     const res = await axios({

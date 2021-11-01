@@ -5,7 +5,6 @@ import { DateTime } from 'luxon'
 
 import Admin from 'App/Models/Admin'
 import EmailValidator from 'App/Validators/EmailValidator'
-import LoginValidator from 'App/Validators/LoginValidator'
 import ForgotPasswordMailer from 'App/Mailers/ForgotPasswordMailer'
 import User from 'App/Models/User'
 
